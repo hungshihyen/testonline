@@ -73,41 +73,5 @@ if($_POST['password'] != $_POST['randomkey'])
 			}
 		}
 	}
-}
-
-
-	/*
-	$date="SELECT * FROM Score WHERE SNumber='$SNumber' ORDER BY time DESC limit 1";
-		$result2=mysql_query($date) or die(mysql_errno());
-		$date_row=mysql_fetch_array($result2);
-		$date2=$date_row[5];
-		//echo $date2;
-	    $query_threshold="SELECT recommend FROM Recommend WHERE SNumber='$SNumber'";
-		$threshold=mysql_query($query_threshold) or die(mysql_errno());
-		//echo mysql_num_rows($threshold);
-		if(mysql_num_rows($threshold)<4){
-			if ($row[0] != $SNumber|| $row[1] !=$SNAME){
-			unset($_SESSION[$SNumber]);
-			header("refresh:1;URL=test_login.php");
-			echo"輸入的學號或姓名錯誤!";
-			}
-		else{
-			if(strtotime($date1)-strtotime($date2)>10){
-				header("Location:recommend.php");
-			    }
-			else{
-			    echo"TAKE A BREAK!";
-				unset($_SESSION[$SNumber]);
-			    header("refresh:1;URL=test_login.php");
-
-			  }
-			}
-		}
-		else{
-
-			header("refresh:1;URL=test_login.php");
-			echo "Work too hard, take a break";
-		}
-
-	*/
+}	
 ?>

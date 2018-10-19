@@ -5,52 +5,61 @@ $pdo = new MyPDO;
 $Unit=$_SESSION['Unit'];
 $QNumber=0;
 $query = $pdo->bindQuery("SELECT QID,Que,Option1,Option2,Option3,Option4,Ans FROM qanda WHERE Unit='$Unit'");
-
-foreach($query as $value)
-{
-    $Que = $value['Que'];
-    $Option1 = $value['Option1'];
-    $Option2 = $value['Option2'];
-    $Option3 = $value['Option3'];
-    $Option4 = $value['Option4'];
-    $QNumber++;
-
 ?>
-    <form name="form1" method="POST" action="Count.php">
-    <div>
-    <table cellpadding="5">
-    <tr>
-        <td align="center"><b><font color="#000080"><?php echo $QNumber;?></font></b></td>
-        <td><b><font color="#000080"><?php echo $Que;?></font></b></td>
-    </tr>
-    <tr>
-        <td width="5%" align="center">
-        <input type="radio" name="ans<?php echo $QNumber;?>" value="Option1"></td>
-        <td width="95%"><?php echo $Option1;?></td>
-    </tr>
-    <tr>
-        <td width="5%" align="center">
-        <input type="radio" name="ans<?php echo $QNumber;?>" value="Option2"></td>
-        <td width="95%"><?php echo $Option2;?></td>
-    </tr>
-    <tr>
-        <td width="5%" align="center">
-        <input type="radio" name="ans<?php echo $QNumber;?>" value="Option3"></td>
-        <td width="95%"><?php echo $Option3;?></td>
-    </tr>
-    <tr>
-        <td width="5%" align="center">
-        <input type="radio" name="ans<?php echo $QNumber;?>" value="Option4"></td>
-        <td width="95%"><?php echo $Option4;?></td>
-    </tr>
-    <br>
-<?php
-}
-?>
-    <input type=hidden name='Unit' value="<?php echo $Unit; ?>">
-    </table>
-    </div>
-
-<p align="center">
-<input type="submit" name="Submit" value="計算成績"></p>
-		
+<!DOCTYPE html>
+<html lang="zh-TW">
+	<head>
+		<meta http-equiv="content-type"content="text/html;charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+		<link rel="shortcut icon" href="pic.png">
+		<title>影片自學系統</title>
+    </head>
+    <body>
+        <div class="main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                        <form method="POST" action="Count.php">
+                            <div>
+                                <?php foreach($query as $value):?>
+                                    <?php $QNumber++;?>
+                                    <?php $Que = $value['Que']; ?>
+                                    <div class="form-group">
+                                        <?php echo $QNumber;?>
+                                        <?php echo $Que;?>
+                                    </div>
+                                    <div class="form-check">
+                                        <?php $Option1 = $value['Option1'];?>
+                                        <input class="form-check-input" type="radio" name="ans<?php echo $QNumber;?>" value="Option1"></td>
+                                        <?php echo $Option1;?>
+                                    </div>
+                                    <div class="form-check">
+                                        <?php $Option2 = $value['Option2'];?>
+                                        <input class="form-check-input" type="radio" name="ans<?php echo $QNumber;?>" value="Option2"></td>
+                                        <?php echo $Option2;?>
+                                    </div>
+                                    <div class="form-check">
+                                        <?php $Option3 = $value['Option3'];?>
+                                        <input class="form-check-input" type="radio" name="ans<?php echo $QNumber;?>" value="Option2"></td>
+                                        <?php echo $Option3;?>
+                                    </div>
+                                    <div class="form-check">
+                                        <?php $Option4 = $value['Option4'];?>
+                                        <input class="form-check-input" type="radio" name="ans<?php echo $QNumber;?>" value="Option4"></td>
+                                        <?php echo $Option4;?>
+                                    </div>
+                                    <br>
+                                <?php endforeach;?>
+                                <input type=hidden name='Unit' value="<?php echo $Unit;?>">
+                            </div>
+                            <div class="text-center">
+                                <input class="btn btn-light btn-lg" type="submit" name="Submit" value="計算成績">
+                            </div>
+                        </form>
+                    </div>     
+                </div>
+            </div>
+        </div> 
+    </body>
+</html>

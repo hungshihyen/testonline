@@ -41,28 +41,27 @@ $randomkey = $pdo->randomkeys($length);
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-sm-offset-3">
-						<form class="form-horizontal" method="POST" action="check_tester.php">
+						<form id="loginForm" class="form-horizontal" method="POST" action="check_tester.php">
 							<div class="form-group row">
 								<label for="StNumber" class="col-sm-4 col-form-label">您的學號：</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="StNumber" name="SNumber" placeholder="輸入學號">
+									<input type="text" class="form-control" id="StNumber" name="SNumber" placeholder="輸入學號" required>
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="inputPassword" class="col-sm-4 col-form-label">輸入代碼：</label>
+								<label for="password" class="col-sm-4 col-form-label">輸入代碼：</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" name="password" id="inputPassword" placeholder="輸入以下代碼">
+									<input type="text" class="form-control" id="password" placeholder="輸入以下代碼" required>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-4 col-form-label">隨機代碼：</label>
-								<div class="col-sm-8">
-									<h3><?php echo $randomkey;?></h3>
-									<input type="hidden" name="randomkey" value="<?php echo $randomkey;?>">
+								<div id="randomkey" class="col-sm-8">
+									<font size="20" color="grey"><?php echo $randomkey;?></font>
 								</div>
 							</div>
-							<div class="text-center">
-								<input class="btn btn-primary btn-lg" type="submit" value="登入">
+							<div id="btn" class="text-center">
+								<button class="btn btn-primary btn-lg" type="submit">登入</button>
 							</div>
 						</form>
 					</div>
@@ -78,6 +77,42 @@ $randomkey = $pdo->randomkeys($length);
 				</div>
 			</div>
 		</div>
-		<script src="project/jquery-3.3.1.min.js"></script>
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		<script>
+			$(document).on("ready", function()
+			{
+				$("#StNumber").on("keyup", function()
+				{
+					var keyin = $(this).val();
+					console.log(keyin);
+					if(keyin != "")
+					{
+						$.ajax({
+							type:"POST",
+							url:"checkuser.php",
+							data:{n : $(this).val()},
+							dataType:'html'
+						}).done(function(data)
+						{
+							console.log(data);
+							if(data == "Entry")
+							{
+								$("#StNumber").parent().parent().removeClass("has-error").addClass("has-success"); 
+								//把註冊按鈕 disabled 類別移除，讓他可以按註冊
+								$("#btn button[type='submit']").attr("disabled", false);
+							}else
+							{
+								$("#StNumber").parent().parent().removeClass("has-success").addClass("has-error");
+								$("#btn button[type='submit']").attr("disabled", true);
+							}
+						})
+					}else
+					{
+						$("#StNumber").parent().parent().removeClass("has-error").removeClass("has-success");
+						$("#btn button[type='submit']").attr("disabled", false);
+					}
+				})
+			})
+		</script>
 	</body>
 </html>

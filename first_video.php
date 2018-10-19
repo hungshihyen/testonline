@@ -12,11 +12,33 @@ if(!isset($_SESSION['SNumber']))
 }
 ?> 
 
-<p align="center">
-<iframe width="1200" height="700" src="<?php echo $src;?>" frameborder="0" allowfullscreen></iframe>
-<form name="form1" method="POST" action="test.php">
-<div>
-<td colspan="2"><p align="center">
-<input name="buttom" type="submit" value="進入測驗">
-</td>
-</div>
+<!DOCTYPE html>
+<html lang="zh-TW">
+	<head>
+		<meta http-equiv="content-type"content="text/html;charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+		<link rel="shortcut icon" href="pic.png">
+		<title>影片自學系統</title>
+	</head>
+	<body>
+		<div class="main">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="<?php echo $src;?>"  allowfullscreen></iframe>
+                        </div>
+					</div>
+				</div>
+			</div>
+        </div>
+        <div>
+            <form name="form" method="POST" action="test.php">
+                <div class="text-center">
+                    <input class="btn btn-light btn-lg" type="submit" value="進入測驗">
+                </div>
+            </form>
+        </div>
+	</body>
+</html>

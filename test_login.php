@@ -22,8 +22,8 @@ $randomkey = $pdo->randomkeys($length);
 		<div class="jumbotron">
 			<div class="container">
 				<div class="row">
-					<div class="col-xs-12">
-					<h1 class="text-center"><font color="blue">影片自學系統</font></h1>
+					<div class="col-xs-12 text-center text-primary" style="font-size:3em">
+						影片自學系統
 					</div>
 				</div>
 			</div>
@@ -56,8 +56,8 @@ $randomkey = $pdo->randomkeys($length);
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-4 col-form-label">隨機代碼：</label>
-								<div id="randomkey" class="col-sm-8">
-									<font size="20" color="grey"><?php echo $randomkey;?></font>
+								<div id="randomkey" class="col-sm-8 text-success" style="font-size:3em">
+									<?php echo $randomkey;?>
 								</div>
 							</div>
 							<div id="btn" class="text-center">

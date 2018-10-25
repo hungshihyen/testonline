@@ -1,29 +1,31 @@
 <?php
 session_start();
 
-if($_POST['password'] != $_POST['randomkey'])
+date_default_timezone_set("Asia/Taipei");
+$dateNow=date('Y-m-d H:i:s');
+include("pdo_class.php");
+$pdo = new MyPDO;
+$str="SELECT `SNumber`, `Password` FROM Student WHERE SNumber = '{$_POST["SNumber"]}'";
+$query = $pdo->bindQuery($str);
+//檢查學號是否正確
+if(!$query)
 {
-	echo "驗證碼錯誤!";
+	echo "沒有這個使用者！";
 	header("refresh:1;URL=test_login.php");
 }else
 {
-	date_default_timezone_set("Asia/Taipei");
-	$dateNow=date('Y-m-d H:i:s');
-	include("pdo_class.php");
-	$pdo = new MyPDO;
-	$str="SELECT SNumber FROM Student WHERE SNumber = '{$_POST["SNumber"]}'";
-	$query = $pdo->bindQuery($str);
-	//檢查學號是否正確
-	if(!$query)
+	foreach($query as $val)
 	{
-		echo"輸入的學號錯誤!";
+		 $SNumber = $val['SNumber'];
+		 $Password = $val['Password'];
+	}
+
+	if($SNumber != $_POST['SNumber'] || $Password != $_POST['Password'])
+	{
+		print_r($_POST);
 		header("refresh:1;URL=test_login.php");
 	}else
 	{
-		foreach($query as $val)
-		{
-		 $SNumber = $val['SNumber'];
-		}
 		//設置時間阻擋
 		$str = "SELECT `time` FROM Score WHERE SNumber='$SNumber' ORDER BY time DESC limit 1";
 		$query_time = $pdo->bindQuery($str);
@@ -73,5 +75,5 @@ if($_POST['password'] != $_POST['randomkey'])
 			}
 		}
 	}
-}	
+}
 ?>

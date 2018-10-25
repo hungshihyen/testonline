@@ -4,10 +4,7 @@ if($_SESSION)
 {
 	session_unset();
 }
-include("pdo_class.php");
-$pdo = new MyPDO;
-$length = 4;
-$randomkey = $pdo->randomkeys($length);
+
 ?>
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -49,15 +46,9 @@ $randomkey = $pdo->randomkeys($length);
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="password" class="col-sm-4 col-form-label">輸入代碼：</label>
+								<label for="password" class="col-sm-4 col-form-label">登入碼：</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="password" placeholder="輸入以下代碼" required>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-4 col-form-label">隨機代碼：</label>
-								<div id="randomkey" class="col-sm-8 text-success" style="font-size:3em">
-									<?php echo $randomkey;?>
+									<input type="password" class="form-control" id="password" name="Password" placeholder="輸入以下代碼" required>
 								</div>
 							</div>
 							<div id="btn" class="text-center">
@@ -105,6 +96,9 @@ $randomkey = $pdo->randomkeys($length);
 								$("#StNumber").parent().parent().removeClass("has-success").addClass("has-error");
 								$("#btn button[type='submit']").attr("disabled", true);
 							}
+						}).fail(function(jqXHR, textStatus, errorThrown){
+							alert("錯誤產生，請看console.log");
+							console.log(jqXHR, responseText);
 						})
 					}else
 					{
